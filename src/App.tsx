@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Header, MobileCallBar, TopBar } from "./components/Header";
 import { Hero, StatsBand } from "./components/Hero";
-import { Gallery, MaterialsStrip, Services, Storm, Why } from "./components/Sections";
+import { Gallery, Services, Storm, Why } from "./components/Sections";
 import { About, Contact, Faq, Footer, Reviews } from "./components/Sections2";
 
 export default function App() {
@@ -16,7 +16,6 @@ export default function App() {
       <main>
         <Hero />
         <StatsBand />
-        <MaterialsStrip />
         <Services onPick={pick} />
         <Storm onPick={pick} />
         <Why />

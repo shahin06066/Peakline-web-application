@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { AREAS, IMG, PHONE, PHONE_HREF, STATS, TRUST_BADGES } from "../data";
 import {
   IconBadge,
@@ -17,38 +16,16 @@ const BADGE_ICONS: Record<string, typeof IconShield> = {
 };
 
 export function Hero() {
-  const bgRef = useRef<HTMLDivElement>(null);
-
-  // gentle parallax drift on the hero photo as the page scrolls
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        if (bgRef.current) {
-          bgRef.current.style.transform = `translateY(${Math.min(window.scrollY, 900) * 0.22}px)`;
-        }
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <section id="top" className="relative overflow-hidden bg-ink text-paper">
       {/* layered background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div ref={bgRef} className="absolute -top-14 -bottom-14 left-0 right-0">
-          <img
-            src={IMG.hero}
-            alt="PeakLine Roofing crew installing a new roof under a clear Colorado sky"
-            className="kenburns h-full w-full object-cover opacity-35"
-            loading="eager"
-          />
-        </div>
+      <div className="absolute inset-0">
+        <img
+          src={IMG.hero}
+          alt="PeakLine Roofing crew installing a new roof under a clear Colorado sky"
+          className="h-full w-full object-cover opacity-35"
+          loading="eager"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/88 to-ink/45" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/70" />
         <div className="absolute inset-0 bg-shingle" />

@@ -32,42 +32,6 @@ const WHY_ICONS: Record<string, typeof IconMap> = {
   broom: IconBroom,
 };
 
-/* ================= MATERIALS STRIP ================= */
-
-const BRANDS = [
-  "GAF Timberline",
-  "Owens Corning",
-  "CertainTeed",
-  "James Hardie®",
-  "Decra® Stone-Coated",
-  "Boral Steel",
-];
-
-export function MaterialsStrip() {
-  return (
-    <section aria-label="Materials we install" className="border-b border-line bg-card">
-      <Reveal>
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-4 px-6 py-7 lg:justify-between">
-          <p className="flex items-center gap-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.24em] text-steel">
-            <span className="h-2 w-2 bg-ember" aria-hidden />
-            Premium Materials We Install
-          </p>
-          <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
-            {BRANDS.map((b, i) => (
-              <li key={b} className="flex items-center gap-3">
-                {i > 0 && <PeakDivider className="h-2 w-8 text-line" aria-hidden />}
-                <span className="cursor-default font-display text-[19px] font-bold uppercase tracking-[0.06em] text-steel transition-all duration-300 hover:-translate-y-0.5 hover:text-ember">
-                  {b}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
 const STEP_ICONS: Record<string, typeof IconScope> = {
   scope: IconScope,
   report: IconReport,

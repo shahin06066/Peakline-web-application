@@ -134,19 +134,6 @@ body {
   animation: float-slow 7s ease-in-out infinite;
 }
 
-@keyframes kenburns {
-  from {
-    transform: scale(1) translateX(0);
-  }
-  to {
-    transform: scale(1.12) translateX(-1.5%);
-  }
-}
-.kenburns {
-  animation: kenburns 22s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
 /* ---------- scroll reveal ---------- */
 .reveal {
   opacity: 0;
@@ -168,8 +155,7 @@ body {
   .animate-marquee,
   .bg-rain,
   .float-slow,
-  .pulse-dot,
-  .kenburns {
+  .pulse-dot {
     animation: none;
   }
 }

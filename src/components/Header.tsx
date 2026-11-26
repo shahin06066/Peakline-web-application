@@ -12,56 +12,6 @@ const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Ember progress bar pinned to the top edge — fills as you scroll. */
-function ScrollProgress() {
-  const [p, setP] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const h = document.documentElement;
-        const max = h.scrollHeight - h.clientHeight;
-        setP(max > 0 ? Math.min(h.scrollTop / max, 1) : 0);
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-  return (
-    <div
-      aria-hidden
-      className="fixed top-0 left-0 z-[70] h-[3px] bg-ember shadow-[0_0_12px_rgba(240,90,14,0.8)]"
-      style={{ width: `${p * 100}%` }}
-    />
-  );
-}
-
-/** Watches page sections and reports which one is in view. */
-function useScrollSpy(ids: string[]) {
-  const [active, setActive] = useState("");
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: "-38% 0px -55% 0px" },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
-  }, [ids]);
-  return active;
-}
-
 export function TopBar() {
   return (
     <div className="hidden bg-abyss text-steel-2 md:block">
@@ -85,12 +35,9 @@ export function TopBar() {
   );
 }
 
-const SECTION_IDS = ["services", "storm", "gallery", "reviews", "about", "contact"];
-
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const active = useScrollSpy(SECTION_IDS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -100,8 +47,6 @@ export function Header() {
   }, []);
 
   return (
-    <>
-    <ScrollProgress />
     <header
       className={cn(
         "sticky top-0 z-50 border-b transition-all duration-300",
@@ -124,29 +69,15 @@ export function Header() {
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-          {NAV.map((n) => {
-            const isActive = active === n.href.slice(1);
-            return (
-              <a
-                key={n.href}
-                href={n.href}
-                aria-current={isActive ? "true" : undefined}
-                className={cn(
-                  "relative py-1 font-display text-[15.5px] font-semibold uppercase tracking-[0.1em] transition-colors hover:text-paper",
-                  isActive ? "text-ember-2" : "text-steel-2",
-                )}
-              >
-                {n.label}
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute -bottom-0.5 left-0 h-[2.5px] bg-ember transition-all duration-300",
-                    isActive ? "w-full" : "w-0",
-                  )}
-                />
-              </a>
-            );
-          })}
+          {NAV.map((n) => (
+            <a
+              key={n.href}
+              href={n.href}
+              className="link-underline font-display text-[15.5px] font-semibold uppercase tracking-[0.1em] text-steel-2 transition-colors hover:text-paper"
+            >
+              {n.label}
+            </a>
+          ))}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -205,7 +136,6 @@ export function Header() {
         </div>
       </div>
     </header>
-    </>
   );
 }
 
