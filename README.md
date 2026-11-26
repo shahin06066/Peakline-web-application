@@ -34,12 +34,8 @@ npm run dev
 npm run build        # outputs a single-file dist/index.html
 ```
 
-Deployment (GitHub Pages from the `gh-pages` branch):
-
-```bash
-cd dist
-git init -b gh-pages && git add -A && git commit -m "deploy"
-git push -f origin gh-pages
-```
-
-GitHub Pages serves the `gh-pages` branch at the live URL above.
+Deployment is automated: pushing to `main` triggers
+`.github/workflows/deploy.yml`, which builds the site and publishes it to
+GitHub Pages (Actions source). A snapshot of the built site also lives on the
+`gh-pages` branch, and the previous implementation is preserved on
+`option-2-backup`.
